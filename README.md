@@ -74,7 +74,9 @@ flowchart LR
 ## 🔐 Variables de entorno
 
 En el archivo `.env`, asegurate de definir:
+
 FB_PAGE_ACCESS_TOKEN=tu_token_de_facebook
+
 COHERE_API_KEY=tu_token_de_cohere
 
 ---
@@ -96,9 +98,6 @@ pip install -r requirements.txt
 # Migraciones y superusuario
 python manage.py migrate
 python manage.py createsuperuser
-
-# Cargar datos base
-python manage.py shell < scripts/poblar_datos.py
 
 # Iniciar servidor
 python manage.py runserver
@@ -128,6 +127,7 @@ Muestra el flujo completo desde un mensaje hasta la respuesta automática del bo
 
 ## 📜 Política de privacidad
 La política de privacidad está disponible en:
+
 https://facundopazbuxeda.github.io/chatbot_scyt/politica-privacidad.html
 
 ## 🔐 Permisos solicitados a Meta
