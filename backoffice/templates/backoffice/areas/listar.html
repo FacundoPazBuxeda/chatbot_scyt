@@ -1,0 +1,33 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>🏛 Áreas institucionales</h2>
+        <a href="{% url 'backoffice:crear_area' %}" class="btn btn-success">➕ Nueva área</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for area in areas %}
+            <tr>
+                <td>{{ area.nombre }}</td>
+                <td>{{ area.correo }}</td>
+                <td>
+                    <a href="{% url 'backoffice:editar_area' area.id %}" class="btn btn-sm btn-outline-primary">✏️</a>
+                    <a href="{% url 'backoffice:eliminar_area' area.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar esta área?')">🗑</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center">No hay áreas registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

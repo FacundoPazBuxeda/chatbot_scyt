@@ -1,0 +1,31 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>🧭 Categorías</h2>
+        <a href="{% url 'backoffice:crear_categoria' %}" class="btn btn-success">➕ Nueva categoría</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.nombre }}</td>
+                <td>
+                    <a href="{% url 'backoffice:editar_categoria' categoria.id %}" class="btn btn-sm btn-outline-primary">✏️</a>
+                    <a href="{% url 'backoffice:eliminar_categoria' categoria.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar esta categoría?')">🗑</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="2" class="text-center">No hay categorías registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

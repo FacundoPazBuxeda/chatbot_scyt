@@ -1,0 +1,63 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+<h2>{{ modo|title }} Eventos</h2>
+<div class="row">
+    <!-- Columna izquierda: Formulario -->
+    <div class="col-md-6">
+        <form method="post" class="card p-4 shadow-sm">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="text-danger">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'backoffice:listar_eventos' %}" class="btn btn-secondary">↩ Volver</a>
+                <button type="submit" class="btn btn-primary">💾 Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Columna derecha: Consejos -->
+    <div class="col-md-6">
+        <div class="alert alert-info shadow-sm">
+            <strong>📝 Recomendaciones generales para todos los eventos:</strong><br>
+            - Escribí toda la información relevante de forma clara y ordenada.<br>
+            - Usá títulos o íconos para separar secciones (📅 Fecha, 📍 Lugar, 👤 Docente, etc).<br>
+            - Incluí enlaces de inscripción o contacto si aplica.<br>
+            - No olvides mencionar si es gratuito o con cupo limitado.<br>
+            - Especificá si hay entrega de certificados, requisitos previos, etc.<br><br>
+
+            <strong>🎯 Consejos según la categoría:</strong><br><br>
+
+            <u>🎤 Charlas:</u><br>
+            - Fecha, hora y lugar de realización.<br>
+            - Nombre y rol del disertante.<br><br>
+
+            <u>🛠 Talleres:</u><br>
+            - Duración, materiales, modalidad.<br><br>
+
+            <u>📚 Cursos:</u><br>
+            - Fecha de inicio/fin, docentes, requisitos.<br><br>
+
+            <u>🎓 Capacitaciones:</u><br>
+            - Público destinatario, objetivos, certificación.<br><br>
+
+            <u>🏆 Convocatorias / Concursos:</u><br>
+            - Fechas clave, etapas, formulario.<br><br>
+
+            <u>🎪 Eventos generales:</u><br>
+            - Lugar, horario, actividades destacadas.
+        </div>
+    </div>
+</div>
+
+{% endblock %}

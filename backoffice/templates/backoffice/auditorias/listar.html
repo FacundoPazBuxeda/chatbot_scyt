@@ -1,0 +1,52 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>🧾 Registro de Auditoría</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Acción</th>
+                <th>Modelo</th>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>IP</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log.timestamp|date:"d/m/Y H:i" }}</td>
+                <td>{{ log.usuario.username|default:"—" }}</td>
+                <td>{{ log.accion }}</td>
+                <td>{{ log.modelo }}</td>
+                <td>{{ log.objeto_id }}</td>
+                <td>{{ log.descripcion|default:"—" }}</td>
+                <td>{{ log.ip|default:"—" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">No hay registros aún.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- paginación -->
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% if logs.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ logs.previous_page_number }}">‹</a></li>
+        {% endif %}
+        <li class="page-item active"><a class="page-link" href="#">{{ logs.number }}</a></li>
+        {% if logs.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ logs.next_page_number }}">›</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ logs.paginator.num_pages }}">&raquo;</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'backoffice/base.html' %} {% load static %} {% block content %}
+<div class="container mt-4">
+  <h2>📊 Panel de control</h2>
+
+  <div class="row g-4 mt-4">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm text-bg-light">
+        <div class="card-body">
+          <h5 class="card-title">💬 Chats de hoy</h5>
+          <p class="display-5">{{ chats_hoy }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm text-bg-light">
+        <div class="card-body">
+          <h5 class="card-title">📅 Eventos activos</h5>
+          <p class="display-5">{{ eventos_activos }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm text-bg-light">
+        <div class="card-body">
+          <h5 class="card-title">👤 Usuarios staff</h5>
+          <p class="display-5">{{ usuarios_staff }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm text-bg-light">
+        <div class="card-body">
+          <h5 class="card-title">🧾 Última acción</h5>
+          {% if ultima_auditoria %}
+          <p class="small text-muted mb-1">
+            {{ ultima_auditoria.timestamp|date:"d/m/Y H:i" }}
+          </p>
+          <p>{{ ultima_auditoria.accion }}</p>
+          {% else %}
+          <p>—</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-success">{{ message }}</div>
+  {% endfor %} {% endif %}
+  <a href="{% url 'backoffice:reindexar_chroma' %}" class="btn btn-primary">
+    🔄 Reindexar Base de Conocimiento
+  </a>
+</div>
+{% endblock %}

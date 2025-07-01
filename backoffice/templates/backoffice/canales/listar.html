@@ -1,0 +1,48 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>📡 Canales conectados</h2>
+        <a href="{% url 'backoffice:crear_canal' %}" class="btn btn-success">➕ Nuevo canal</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Plataforma</th>
+                    <th>Page ID</th>
+                    <th>Activo</th>
+                    <th style="width: 160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for canal in canales %}
+                <tr>
+                    <td>{{ canal.nombre }}</td>
+                    <td>{{ canal.get_plataforma_display }}</td>
+                    <td>{{ canal.page_id }}</td>
+                    <td>
+                        {% if canal.activo %}
+                            ✅
+                        {% else %}
+                            ❌
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'backoffice:editar_canal' canal.id %}" class="btn btn-sm btn-outline-primary">✏️ Editar</a>
+                        <a href="{% url 'backoffice:eliminar_canal' canal.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas eliminar este canal?')">🗑 Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay canales registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

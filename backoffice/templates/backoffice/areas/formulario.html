@@ -1,0 +1,15 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ modo|title }} área</h2>
+    <form method="post" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{% url 'backoffice:listar_areas' %}" class="btn btn-secondary">↩ Volver</a>
+            <button type="submit" class="btn btn-primary">💾 Guardar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

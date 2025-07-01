@@ -1,0 +1,41 @@
+{% extends 'backoffice/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>📜 Historial de Interacciones</h3>
+    <hr>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>🆔 Chat ID</th>
+                <th>🧑 Usuario</th>
+                <th>🤖 Bot</th>
+                <th>🕒 Fecha</th>
+                <th>🌐 Canal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.chat_id }}</td>
+                    <td>{{ log.mensaje_usuario|truncatechars:80 }}</td>
+                    <td>{{ log.respuesta_bot|truncatechars:80 }}</td>
+                    <td>{{ log.timestamp|date:"d/m/Y H:i" }}</td>
+                    <td>{{ log.canal }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No hay registros.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if logs.has_previous %}
+            <a href="?page={{ logs.previous_page_number }}">&laquo; Anterior</a>
+        {% endif %}
+        <span>Página {{ logs.number }} de {{ logs.paginator.num_pages }}</span>
+        {% if logs.has_next %}
+            <a href="?page={{ logs.next_page_number }}">Siguiente &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'backoffice/base.html' %} {% block content %}
+<div class="container">
+  <h2>🧠 Probar Chatbot</h2>
+  <form method="post" class="my-3">
+    {% csrf_token %}
+    <div class="input-group">
+      <input
+        type="text"
+        name="mensaje"
+        class="form-control"
+        placeholder="Escribí tu consulta..."
+        value="{{ pregunta }}"
+      />
+      <button class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+
+  {% if historial %}
+  <div class="card p-3 shadow-sm">
+    <h5>🗨️ Conversación</h5>
+    <hr />
+    {% for linea in historial %} {% if "Usuario:" in linea %}
+    <p><strong>👤 Usuario:</strong> {{ linea|cut:"Usuario:" }}</p>
+    {% elif "Bot:" in linea %}
+    <p><strong>🤖 Bot:</strong> {{ linea|cut:"Bot:" }}</p>
+    {% endif %} {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
